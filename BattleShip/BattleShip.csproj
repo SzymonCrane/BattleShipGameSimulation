@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="GameObjects\Game\" />
-    <Folder Include="GameObjects\Ship\" />
   </ItemGroup>
 
 </Project>
