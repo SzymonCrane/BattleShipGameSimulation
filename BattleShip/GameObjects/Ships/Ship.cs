@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleShip.GameObjects.Board;
 
-namespace BattleShip.GameObjects.Ship
+namespace BattleShip.GameObjects.Ships
 {
     public abstract class Ship
     {

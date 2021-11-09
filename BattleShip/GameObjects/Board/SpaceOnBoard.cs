@@ -16,7 +16,7 @@ namespace BattleShip.GameObjects.Board
             Coordinates = new Coordinates(row, column);
             MarkType = MarkType.Empty;
         }
-        // TODO how to find status of mark on board?
+        // TODO how to find status of mark on board
         public bool IsTaken
         {
             get

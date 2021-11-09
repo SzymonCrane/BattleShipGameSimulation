@@ -10,6 +10,13 @@ namespace BattleShip.GameObjects.Board
     {
         public List<SpaceOnBoard> SpaceOnBoards { get; set; }
         
+        //  Create SpaceOnBoard list with a board which looks like this right now:
+        //      1 2 3 4
+        //    1 1 2 3 4
+        //    2 2 2 3 4
+        //    3 3 3 3 4
+        //    4 4 4 4 4
+
         public GameBoard()
         {
             SpaceOnBoards = new List<SpaceOnBoard>();
