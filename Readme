@@ -1,0 +1,14 @@
+This is a sample project of BattleShip simulation game
+
+Below is my first even written documentation
+
+I started from creating project files management -> folder Board conatins classes which declare all sources of boarding the game
+Coordinates -> defines properties of coordinate which are integers - row & column,
+
+FiringBoard -> this class defines all actions that take place on firing board:
+- Declares finding possible shot coordinates with GetOpenRandomSpaceOnBoard List, 
+- To avoid shooting in the same spot more than once I've had to declare GetNearHit function which gives list of coords that have already been shot.
+- GetNearShip takes coordinates and returns free spaces to shoot
+
+GameBoard -> This class creates propertie SpaceOnBoards which is later commonly used to get a specified coordinates, also contains GameBoard() object who generates boards to fire and place ships
+
