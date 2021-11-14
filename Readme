@@ -2,7 +2,9 @@ This is a sample project of BattleShip simulation game
 
 Below is my first even written documentation
 
-I started from creating project files management -> folder Board conatins classes which declare all sources of boarding the game
+I started from creating project files management -> 
+folder Board conatins classes which declare all sources of boarding the game
+
 Coordinates -> defines properties of coordinate which are integers - row & column,
 
 FiringBoard -> this class defines all actions that take place on firing board:
@@ -12,3 +14,7 @@ FiringBoard -> this class defines all actions that take place on firing board:
 
 GameBoard -> This class creates propertie SpaceOnBoards which is later commonly used to get a specified coordinates, also contains GameBoard() object who generates boards to fire and place ships
 
+SpaceOnBoard -> contains definition of exact point on board, type of Point( is that a ship or free place to shoot, or even if that point has previously been shoot)
+Contains:
+- Status which gives back string which contains type of 'Mark' which is point status(free, ship, missed)
+- IsTaken returns boolean which is obviously needed to create gaming board and fullfill it with ships.
