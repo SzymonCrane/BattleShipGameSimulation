@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleShip.GameObjects;
+using System;
 
 namespace BattleShip
 {
@@ -6,7 +7,8 @@ namespace BattleShip
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Game game = new Game();
+            game.PlayRound();
         }
     }
 }

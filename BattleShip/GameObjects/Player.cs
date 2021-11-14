@@ -21,7 +21,7 @@ namespace BattleShip.GameObjects
                 return Ships.All(x => x.IsSunk);
             }
         }
-        
+
         public Player(string name)
         {
             Name = name;
@@ -49,7 +49,7 @@ namespace BattleShip.GameObjects
                     var endRow = startRow;
                     var endColumn = startColumn;
                     var mapPoint = rand.Next(1, 101) % 2;
-                    var startPointTaken = GameBoard.SpaceOnBoards.GetRange(startRow, startColumn); 
+                    var startPointTaken = GameBoard.SpaceOnBoards.GetRange(startRow, startColumn);
                     var endPointTaken = GameBoard.SpaceOnBoards.GetRange(endRow, endColumn);
 
 
@@ -85,13 +85,13 @@ namespace BattleShip.GameObjects
                         continue;
                     }
 
-                    foreach(var point in startPointTaken)
+                    foreach (var point in startPointTaken)
                     {
                         point.MarkType = ship.MarkType;
                     }
                     isFree = false;
 
-                    foreach(var point in endPointTaken)
+                    foreach (var point in endPointTaken)
                     {
                         point.MarkType = ship.MarkType;
                     }
@@ -100,28 +100,92 @@ namespace BattleShip.GameObjects
             }
         }
 
-    public void DrawBoards()
-    {
-        Console.WriteLine(Name);
-        Console.WriteLine("Your board:                                                Firing Board:");
-        for(var row = 1; row <= 10; row++)
+        public void DrawBoards()
+        {
+            Console.WriteLine(Name);
+            Console.WriteLine("Your board:                                                Firing Board:");
+            for (var row = 1; row <= 10; row++)
             {
-                for(var yourColumn = 1; yourColumn <= 10; yourColumn++)
+                for (var yourColumn = 1; yourColumn <= 10; yourColumn++)
                 {
                     Console.Write(GameBoard.SpaceOnBoards.At(row, yourColumn).Status + " \t\t\t\t\t\t");
                 }
-                for(var fireColumn = 1; fireColumn <= 1-; fireColumn++)
+                for (var fireColumn = 1; fireColumn <= 10; fireColumn++)
                 {
                     Console.Write(FiringBoard.SpaceOnBoards.At(row, fireColumn).Status + " \t\t\t\t\t\t");
                 }
                 Console.Write(Environment.NewLine);
             }
-        Console.WriteLine(Environment.NewLine);
-    }
-    
-    public Coordinates FireShot() { }
-    public Coordinates RandShot() { }
-    private Coordinates SearchForShot() { }
+            Console.WriteLine(Environment.NewLine);
+        }
 
+        public Coordinates FireShot()
+        {
+            var hitNear = FiringBoard.GetNearHit();
+            Coordinates coordinates;
+
+            if (hitNear.Any())
+            {
+                coordinates = SearchForShot();
+            }
+            else
+            {
+                coordinates = RandShot();
+            }
+            Console.WriteLine(Name + " firing on point: " + coordinates.Row.ToString() + " " + coordinates.Column.ToString());
+            return coordinates;
+        }
+        public Coordinates RandShot() 
+        {
+            var spaceAvailable = FiringBoard.GetOpenRandomSpaceOnBoard();
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            var spaceCoords = rand.Next(spaceAvailable.Count());
+            return spaceAvailable[spaceCoords];
+        }
+        private Coordinates SearchForShot() 
+        {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            var hitNear = FiringBoard.GetNearHit();
+            var nearCoords = rand.Next(hitNear.Count());
+            return hitNear[nearCoords];
+        }
+
+        public ShotResult ReactToShot(Coordinates coordinates)
+        {
+            var space = GameBoard.SpaceOnBoards.At(coordinates.Row, coordinates.Column);
+
+            if(space.IsTaken == false)
+            {
+                Console.WriteLine(Name + " missed.");
+                return ShotResult.Miss;
+            }
+
+            var ship = Ships.First(x => x.MarkType == space.MarkType);
+            //Count hits
+            ship.Hits++;
+
+            Console.WriteLine(Name + " hit!");
+
+            if (ship.IsSunk)
+            {
+                Console.WriteLine(Name + " ship named " + ship.Name + " is drowning");
+            }
+
+            return ShotResult.Hit;
+        }
+        public void ProcessShotResult(Coordinates coordinates, ShotResult result)
+        {
+            var space = FiringBoard.SpaceOnBoards.At(coordinates.Row, coordinates.Column);
+            switch(result)
+            {
+                case ShotResult.Hit:
+                    space.MarkType = MarkType.Hit;
+                    break;
+
+                default:
+                    space.MarkType = MarkType.Miss;
+                    break;
+            }
+        }
     }
 }

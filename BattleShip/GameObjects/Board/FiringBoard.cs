@@ -27,7 +27,7 @@ namespace BattleShip.GameObjects.Board
             var row = coordinates.Row;
             var column = coordinates.Column;
 
-            List<SpaceOnBoard> spaces = new List<SpaceOnBoard>;
+            List<SpaceOnBoard> spaces = new List<SpaceOnBoard>();
 
             if (column > 1)
             {
